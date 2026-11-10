@@ -1,0 +1,43 @@
+{
+  "version": 1,
+  "mode": "static",
+  "title": "城市摄影小展",
+  "subtitle": "从选题、排期到现场展示的一页策划。",
+  "items": [
+    {"type":"callout","label":"策展原则","tone":"info","emoji":"💡","text":"先确定观众看完之后要记住什么，再挑选能讲出这个故事的照片。"},
+    {"type":"tiles","label":"两个视觉方向","layout":"grid","entries":[
+      {"label":"清晨街角","emoji":"🌤️","detail":"通过柔和的光线表现城市醒来的过程","badge":"纪实"},
+      {"label":"午夜霓虹","emoji":"🌃","detail":"用高反差表现夜晚的街道和人群","badge":"氛围"}
+    ]},
+    {"type":"facts","label":"展览速览","entries":[
+      {"label":"场地","value":"社区文化馆"},
+      {"label":"作品","value":"12 张","detail":"按两条视觉主线分组"}
+    ]},
+    {"type":"quote","label":"展签文案","text":"沿着一条街，把清晨和午夜摆在同一面墙上。","attribution":"展览开篇"},
+    {"type":"calendar","label":"准备日历","month":"2026-11","entries":[
+      {"day":12,"label":"选片定稿","detail":"整理原片、作者信息和授权记录"},
+      {"day":20,"label":"试印"},
+      {"day":27,"label":"布展","detail":"先调灯光，再检查动线"}
+    ]},
+    {"type":"tree","label":"现场动线","nodes":[
+      {"depth":0,"label":"入口","detail":"一张总览图和策展短文"},
+      {"depth":1,"label":"清晨街角"},
+      {"depth":1,"label":"午夜霓虹"},
+      {"depth":0,"label":"出口","detail":"留言区"}
+    ]},
+    {"type":"status","label":"准备状态","entries":[
+      {"label":"主题讨论","state":"done"},
+      {"label":"照片筛选","state":"active"},
+      {"label":"挂画与灯光","state":"pending"}
+    ]},
+    {"type":"ranking","label":"试展投票结果","unit":"票","entries":[
+      {"label":"午夜公交站","value":24},
+      {"label":"早市侧巷","value":18},
+      {"label":"巷尾的灯","value":10}
+    ]},
+    {"type":"rating","label":"试展观众评分","value":4.6,"max":5,"detail":"示例分数，满分 5 分"},
+    {"type":"formula","label":"预算增幅","expression":"增长率 = (新预算 − 原预算) ÷ 原预算 × 100%","variables":[
+      {"symbol":"原预算","meaning":"8,400 元"},{"symbol":"新预算","meaning":"9,800 元"}
+    ],"result":"增长约 16.7%"}
+  ]
+}

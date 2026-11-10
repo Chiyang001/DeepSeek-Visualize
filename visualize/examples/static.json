@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "mode": "static",
+  "title": "视频数据简报",
+  "subtitle": "示例数据 · 同一视频的两次统计",
+  "items": [
+    {"type":"summary","label":"","layout":"hero","metrics":[
+      {"label":"累计播放量","value":4547,"badge":"+986 播放","tone":"positive"},
+      {"label":"点赞","value":86}, {"label":"评论","value":63},
+      {"label":"分享","value":29}, {"label":"弹幕","value":1}
+    ]},
+    {"type":"table","label":"与上一时段对比","columns":["指标","18:36","19:49","增长"],"emphasis":[3],
+      "rows":[["播放",3561,4547,"+986"],["点赞",74,86,"+12"],["评论",40,63,"+23"],["分享",22,29,"+7"]]},
+    {"type":"chart","label":"每小时新增播放","kind":"line","labels":["14:23","16:15","18:36","19:49"],
+      "series":[{"label":"平均增速","values":[380,510,823,810]}],"highlight":2,"unit":"播放/小时","caption":"各时段平均增速，数值为演示数据。"},
+    {"type":"summary","label":"","layout":"rows","metrics":[
+      {"label":"预计突破 5,000 播放","value":"约 20:23","badge":"趋势外推","tone":"accent"},
+      {"label":"22:00 趋势外推","value":6315,"unit":"播放"}
+    ],"note":"假设近期每小时新增播放保持在约 810，实际结果会随推荐变化。"}
+  ]
+}

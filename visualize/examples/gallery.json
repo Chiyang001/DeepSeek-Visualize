@@ -1,0 +1,529 @@
+{
+  "version": 1,
+  "title": "交互组件示例",
+  "subtitle": "切换分类，试试图表、表单、流程和学习组件。",
+  "items": [
+    {
+      "type": "group",
+      "mode": "tabs",
+      "label": "",
+      "pages": [
+        {
+          "label": "占比与分布",
+          "items": [
+            {
+              "type": "chart",
+              "label": "预算分布",
+              "kind": "donut",
+              "labels": [
+                "住宿",
+                "交通",
+                "餐饮"
+              ],
+              "series": [
+                {
+                  "label": "预算",
+                  "values": [
+                    42,
+                    35,
+                    23
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "chart",
+              "label": "渠道来源",
+              "kind": "pie",
+              "labels": [
+                "搜索",
+                "推荐",
+                "直接访问"
+              ],
+              "series": [
+                {
+                  "label": "来源",
+                  "values": [
+                    55,
+                    30,
+                    15
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "chart",
+              "label": "访问到成交",
+              "kind": "funnel",
+              "labels": [
+                "到达",
+                "试用",
+                "下单",
+                "成交"
+              ],
+              "series": [
+                {
+                  "label": "人数",
+                  "values": [
+                    980,
+                    421,
+                    140,
+                    78
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "chart",
+              "label": "时长分布",
+              "kind": "histogram",
+              "labels": [
+                "0–2分",
+                "2–4分",
+                "4–6分",
+                "6–8分"
+              ],
+              "series": [
+                {
+                  "label": "频数",
+                  "values": [
+                    8,
+                    18,
+                    11,
+                    3
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "数据关系",
+          "items": [
+            {
+              "type": "chart",
+              "label": "属性对比",
+              "kind": "radar",
+              "labels": [
+                "便携",
+                "续航",
+                "音质",
+                "性价比",
+                "降噪"
+              ],
+              "series": [
+                {
+                  "label": "方案 A",
+                  "values": [
+                    9,
+                    7,
+                    8,
+                    8,
+                    5
+                  ]
+                },
+                {
+                  "label": "方案 B",
+                  "values": [
+                    6,
+                    9,
+                    7,
+                    6,
+                    9
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "chart",
+              "label": "流量与转化",
+              "kind": "scatter",
+              "labels": [
+                "活动 A",
+                "活动 B",
+                "活动 C",
+                "活动 D"
+              ],
+              "series": [
+                {
+                  "label": "转化量",
+                  "values": [
+                    12,
+                    30,
+                    18,
+                    46
+                  ]
+                }
+              ],
+              "x": [
+                110,
+                330,
+                280,
+                410
+              ]
+            },
+            {
+              "type": "chart",
+              "label": "分时客流",
+              "kind": "heatmap",
+              "labels": [
+                "早",
+                "午",
+                "晚"
+              ],
+              "series": [
+                {
+                  "label": "周一",
+                  "values": [
+                    12,
+                    30,
+                    20
+                  ]
+                },
+                {
+                  "label": "周三",
+                  "values": [
+                    23,
+                    20,
+                    60
+                  ]
+                },
+                {
+                  "label": "周六",
+                  "values": [
+                    30,
+                    70,
+                    92
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "chart",
+              "label": "周用量",
+              "kind": "stacked",
+              "labels": [
+                "一",
+                "二",
+                "三",
+                "四"
+              ],
+              "series": [
+                {
+                  "label": "工作",
+                  "values": [
+                    4,
+                    5,
+                    2,
+                    4
+                  ]
+                },
+                {
+                  "label": "学习",
+                  "values": [
+                    2,
+                    3,
+                    5,
+                    4
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "chart",
+              "label": "累计进度",
+              "kind": "area",
+              "labels": [
+                "一",
+                "二",
+                "三",
+                "四"
+              ],
+              "series": [
+                {
+                  "label": "完成量",
+                  "values": [
+                    0,
+                    5,
+                    9,
+                    12
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "表单计算",
+          "items": [
+            {
+              "type": "input",
+              "id": "base",
+              "label": "基础费用",
+              "kind": "number",
+              "min": 0,
+              "max": 10000,
+              "initial": 100
+            },
+            {
+              "type": "input",
+              "id": "day",
+              "label": "选择日期",
+              "kind": "date",
+              "initial": null
+            },
+            {
+              "type": "checklist",
+              "id": "extras",
+              "label": "附加项目",
+              "options": [
+                {
+                  "label": "快速处理 +20",
+                  "value": 20
+                },
+                {
+                  "label": "整理报告 +35",
+                  "value": 35
+                },
+                {
+                  "label": "补充图表 +15",
+                  "value": 15
+                }
+              ],
+              "initial": []
+            },
+            {
+              "type": "metric",
+              "label": "总价",
+              "unit": "元",
+              "value": {
+                "op": "+",
+                "args": [
+                  {
+                    "var": "base"
+                  },
+                  {
+                    "op": "sum",
+                    "args": [
+                      {
+                        "var": "extras"
+                      }
+                    ]
+                  }
+                ]
+              }
+            },
+            {
+              "type": "progress",
+              "label": "已选项目",
+              "value": {
+                "op": "count",
+                "args": [
+                  {
+                    "var": "extras"
+                  }
+                ]
+              },
+              "max": 3
+            },
+            {
+              "type": "button",
+              "label": "重置",
+              "action": "reset"
+            }
+          ]
+        },
+        {
+          "label": "计划与流程",
+          "items": [
+            {
+              "type": "gantt",
+              "label": "四周项目排期",
+              "ticks": [
+                "第1周",
+                "第2周",
+                "第3周",
+                "第4周"
+              ],
+              "tasks": [
+                {
+                  "label": "需求梳理",
+                  "start": 0,
+                  "end": 1,
+                  "detail": "确定目标和约束。"
+                },
+                {
+                  "label": "设计与开发",
+                  "start": 1,
+                  "end": 3,
+                  "detail": "完成主要功能。"
+                },
+                {
+                  "label": "验收",
+                  "start": 3,
+                  "end": 4,
+                  "detail": "收集反馈并修复问题。"
+                }
+              ]
+            },
+            {
+              "type": "diagram",
+              "label": "内容发布流程",
+              "nodes": [
+                {
+                  "id": "draft",
+                  "label": "写草稿",
+                  "layer": 0,
+                  "detail": "先整理主题和结构。"
+                },
+                {
+                  "id": "review",
+                  "label": "审稿",
+                  "layer": 1,
+                  "detail": "核对事实与语言。"
+                },
+                {
+                  "id": "visual",
+                  "label": "准备配图",
+                  "layer": 1,
+                  "detail": "整理图表和素材。"
+                },
+                {
+                  "id": "publish",
+                  "label": "发布",
+                  "layer": 2,
+                  "detail": "确认预览并发布。"
+                }
+              ],
+              "edges": [
+                [
+                  "draft",
+                  "review"
+                ],
+                [
+                  "draft",
+                  "visual"
+                ],
+                [
+                  "review",
+                  "publish"
+                ],
+                [
+                  "visual",
+                  "publish"
+                ]
+              ]
+            },
+            {
+              "type": "deck",
+              "kind": "timeline",
+              "label": "里程碑",
+              "entries": [
+                {
+                  "tag": "第 1 周",
+                  "label": "目标确认",
+                  "detail": "评审范围与交付件。"
+                },
+                {
+                  "tag": "第 4 周",
+                  "label": "版本上线",
+                  "detail": "验收后发布。"
+                }
+              ]
+            },
+            {
+              "type": "deck",
+              "kind": "steps",
+              "label": "检查清单",
+              "entries": [
+                {
+                  "label": "核对文案",
+                  "detail": "检查错字和表述。"
+                },
+                {
+                  "label": "测试交互",
+                  "detail": "检查点击、输入和布局。"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "闪卡与折叠",
+          "items": [
+            {
+              "type": "deck",
+              "kind": "flashcards",
+              "label": "词汇复习",
+              "entries": [
+                {
+                  "label": "What does gradient mean?",
+                  "detail": "梯度或渐变，取决于上下文。"
+                },
+                {
+                  "label": "What does estimate mean?",
+                  "detail": "估计，或估算值。"
+                }
+              ]
+            },
+            {
+              "type": "group",
+              "mode": "accordion",
+              "label": "术语解释",
+              "pages": [
+                {
+                  "label": "中位数",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "把数据从小到大排列，取中间位置的值。"
+                    }
+                  ]
+                },
+                {
+                  "label": "方差",
+                  "items": [
+                    {
+                      "type": "text",
+                      "text": "度量数据相对均值的离散程度。"
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "label": "地图",
+          "items": [
+            {
+              "type": "map",
+              "label": "三地示意路线",
+              "route": true,
+              "markers": [
+                {
+                  "label": "成都",
+                  "lat": 30.57,
+                  "lon": 104.07,
+                  "detail": "四川盆地西部。"
+                },
+                {
+                  "label": "西安",
+                  "lat": 34.34,
+                  "lon": 108.94,
+                  "detail": "位于关中平原。"
+                },
+                {
+                  "label": "北京",
+                  "lat": 39.9,
+                  "lon": 116.4,
+                  "detail": "华北平原北部。"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

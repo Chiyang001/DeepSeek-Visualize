@@ -1,0 +1,21 @@
+{
+  "version": 1,
+  "title": "未来 7 天播放量预测",
+  "subtitle": "调整日均播放和推广情景，比较不同条件下的估算结果。",
+  "items": [
+    {"type":"slider","id":"views","label":"日均播放","min":100,"max":5000,"step":100,"initial":1000,"unit":"次"},
+    {"type":"select","id":"scenario","label":"推广情景","options":[{"label":"自然增长","value":1},{"label":"增加曝光","value":1.5},{"label":"曝光下降","value":0.7}],"initial":1},
+    {"type":"metric","label":"七日预计累计","value":{"op":"*","args":[7,{"op":"*","args":[{"var":"views"},{"var":"scenario"}]}]},"unit":"次","digits":0},
+    {"type":"metric","label":"日均预计播放","value":{"op":"*","args":[{"var":"views"},{"var":"scenario"}]},"unit":"次","digits":0},
+    {"type":"chart","label":"累计播放走势","kind":"line","labels":["第 1 天","第 2 天","第 3 天","第 4 天","第 5 天","第 6 天","第 7 天"],"series":[{"label":"当前情景","values":[
+      {"op":"*","args":[{"var":"views"},{"var":"scenario"}]},
+      {"op":"*","args":[2,{"op":"*","args":[{"var":"views"},{"var":"scenario"}]}]},
+      {"op":"*","args":[3,{"op":"*","args":[{"var":"views"},{"var":"scenario"}]}]},
+      {"op":"*","args":[4,{"op":"*","args":[{"var":"views"},{"var":"scenario"}]}]},
+      {"op":"*","args":[5,{"op":"*","args":[{"var":"views"},{"var":"scenario"}]}]},
+      {"op":"*","args":[6,{"op":"*","args":[{"var":"views"},{"var":"scenario"}]}]},
+      {"op":"*","args":[7,{"op":"*","args":[{"var":"views"},{"var":"scenario"}]}]}
+    ]}]},
+    {"type":"button","label":"重置参数","action":"reset"}
+  ]
+}

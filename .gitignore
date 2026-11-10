@@ -1,0 +1,14 @@
+/reverse/
+/视频封面/
+*.apk
+*.aab
+*.dex
+*.class
+*.py[cod]
+__pycache__/
+*.p12
+*.pfx
+*.jks
+*.keystore
+.env
+.env.*

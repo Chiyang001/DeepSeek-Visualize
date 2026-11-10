@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "mode": "static",
+  "title": "画一张秋日旅行明信片",
+  "subtitle": "用表情建立氛围，用色卡定调，再放一张图片示意素材。",
+  "items": [
+    {"type":"emoji","label":"氛围贴纸","entries":[
+      {"emoji":"🍂","label":"初秋","detail":"用一片落叶提示季节"},
+      {"emoji":"📮","label":"寄出","detail":"用邮筒呼应明信片"},
+      {"emoji":"( ´ ▽ \u0060 )","label":"轻松","detail":"用颜文字点缀落款"}
+    ]},
+    {"type":"palette","label":"秋日调色板","swatches":[
+      {"hex":"#D46C46","label":"陶土橙","detail":"适合小面积强调"},
+      {"hex":"#F2DFC3","label":"浅燕麦","detail":"适合大面积留白"},
+      {"hex":"#446654","label":"松针绿","detail":"给文字和描边增加对比"}
+    ]},
+    {"type":"image","label":"图层素材示例","url":"https://upload.wikimedia.org/wikipedia/commons/4/47/PNG_transparency_demonstration_1.png","alt":"透明背景上的骰子，用于展示 PNG 透明图层","caption":"来源 Wikimedia Commons。透明背景的素材可以叠在自选的底色上。"}
+  ]
+}

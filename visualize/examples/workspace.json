@@ -1,0 +1,15 @@
+{
+  "version": 1,
+  "mode": "interactive",
+  "title": "视频发布工作台",
+  "subtitle": "在看板移动任务，检查标题修改，再复制配色。",
+  "items": [
+    {"type":"board","label":"发布看板","columns":[
+      {"label":"待办","cards":[{"label":"拟定标题","tag":"文案"},{"label":"准备封面","tag":"设计"}]},
+      {"label":"进行中","cards":[{"label":"剪辑预告","detail":"先校对画面和字幕"}]},
+      {"label":"已完成","cards":[{"label":"整理素材"}]}
+    ]},
+    {"type":"diff","label":"标题文案变化","beforeLabel":"初稿","afterLabel":"改稿","before":"周末城市摄影\n记录身边风景","after":"周末城市摄影\n从早市拍到午夜"},
+    {"type":"palette","label":"封面强调色","swatches":[{"hex":"#3366CC","label":"主蓝色"},{"hex":"#E9734D","label":"活力橙"}]}
+  ]
+}
