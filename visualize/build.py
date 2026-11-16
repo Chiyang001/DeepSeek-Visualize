@@ -2,6 +2,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 from pathlib import Path
 import shutil
 import subprocess
@@ -42,11 +43,12 @@ def patch(path, before, after, previous=None):
 
 def patch_apk():
     version_file = DECODED / "apktool.yml"
-    version_296 = "  versionCode: 296\n  versionName: 2.7.5.1\n"
-    version_297 = "  versionCode: 297\n  versionName: 2.7.5.2\n"
+    version_content = version_file.read_text(encoding="utf-8")
+    previous_version = next((f"  versionCode: {code}\n  versionName: {name}\n"
+                             for code, name in ((296, "2.7.5.1"), (297, "2.7.5.2"), (298, "2.7.5.3"), (299, "2.7.5.4"))
+                             if f"  versionCode: {code}\n  versionName: {name}\n" in version_content), None)
     patch(version_file, "  versionCode: 295\n  versionName: 2.7.5\n",
-          "  versionCode: 298\n  versionName: 2.7.5.3\n",
-          previous=version_297 if version_297 in version_file.read_text(encoding="utf-8") else version_296)
+          "  versionCode: 300\n  versionName: 2.7.5.5\n", previous=previous_version)
     manifest = DECODED / "AndroidManifest.xml"
     patch(manifest, 'package="com.deepseek.chat"', f'package="{PACKAGE}"')
     for suffix in ["provider", "cn.fly.FlyProvider", "androidx-startup", "jlatexmathinitprovider", "apm"]:
@@ -67,7 +69,10 @@ def patch_apk():
     patch(manifest, '    </application>',
           '        <activity android:name="local.visualize.PreviewActivity" android:exported="true" '
           'android:label="可视化示例" android:theme="@style/Theme.DeepSeek"/>\n'
-          '    </application>')
+          '        <activity android:name="local.visualize.CodeActivity" android:exported="false" '
+          'android:label="代码预览" android:theme="@android:style/Theme.Material.Light.NoActionBar"/>\n'
+          '    </application>', previous='        <activity android:name="local.visualize.PreviewActivity" android:exported="true" '
+          'android:label="可视化示例" android:theme="@style/Theme.DeepSeek"/>\n    </application>')
     strings = DECODED / "res" / "values" / "strings.xml"
     patch(strings, '</resources>', '    <string name="visualize_preview">可视化示例</string>\n</resources>')
     shortcuts = DECODED / "res" / "xml" / "shortcuts.xml"
@@ -80,6 +85,18 @@ def patch_apk():
           '    <shortcut android:icon="@drawable/ic_shortcut_new_chat"')
 
     smali = DECODED / "smali"
+    # Both startup/conversation checks and the profile check feed the stock APK updater.
+    updater = smali / "fy2.smali"
+    content = updater.read_text(encoding="utf-8")
+    for signature in ("a(Lec3;)Ljava/lang/Object;", "b(Ljava/lang/String;JLec3;)Ljava/lang/Object;"):
+        pattern = r"\.method public final " + re.escape(signature) + r"\n.*?\.end method"
+        replacement = (f".method public final {signature}\n    .locals 1\n"
+                       "    # The independently signed clone must not offer stock APK updates.\n"
+                       "    sget-object v0, Lghb;->a:Lghb;\n    return-object v0\n.end method")
+        content, count = re.subn(pattern, lambda _: replacement, content, flags=re.S)
+        if count != 1:
+            raise ValueError(f"Missing updater method: {signature}")
+    updater.write_text(content, encoding="utf-8")
     # This clone's package and signing certificate cannot use DeepSeek's registered WeChat OAuth identity.
     patch(smali / "ju6.smali", '    if-ne v3, v6, :cond_f',
           '    # Do not offer WeChat sign-in in the independently signed build.\n    goto :cond_f')
@@ -111,7 +128,21 @@ def patch_apk():
     target = smali / "g07.smali"
     legacy = previous_hook.replace("{v5, v11, v7, v2}", "{v5, v11, v7}").replace(
         "Lfk7;Lv15;Lk;)V", "Lfk7;Lv15;)V")
-    patch(target, anchor, hook, previous=previous_hook if previous_hook in target.read_text(encoding="utf-8") else legacy)
+    old_hook = hook
+    hook = hook.replace("    invoke-static {v5, v11, v7, v2}, Llocal/visualize/VisualCompose;",
+                        "    invoke-static {v10, v14, v9, v7}, Llocal/visualize/CodeHeader;->standalone(Ljava/lang/String;Ljava/lang/String;ZLv15;)V\n"
+                        "    invoke-static {v5, v11, v7, v2}, Llocal/visualize/VisualCompose;")
+    existing = target.read_text(encoding="utf-8")
+    patch(target, anchor, hook, previous=old_hook if old_hook in existing else
+          previous_hook if previous_hook in existing else legacy)
+    # Migrate the old standalone toolbar into the stock header action list.
+    old_toolbar = "    invoke-static {v10, v14, v9, v11, v7}, Llocal/visualize/CodeCompose;->render(Ljava/lang/String;Ljava/lang/String;ZLfk7;Lv15;)V\n\n"
+    target.write_text(target.read_text(encoding="utf-8").replace(old_toolbar, ""), encoding="utf-8")
+    header = smali / "sz6.smali"
+    anchor = "    move-result-object v3\n\n    .line 148\n    sget-object v4, Lk07;->o:Lxga;"
+    patch(header, anchor, "    move-result-object v3\n"
+          "    invoke-static {v8, v13, v14, v15, v3}, Llocal/visualize/CodeHeader;->augment(Le07;Ljy4;ZLv15;Ljava/util/List;)Ljava/util/List;\n"
+          "    move-result-object v3\n\n    .line 148\n    sget-object v4, Lk07;->o:Lxga;")
     anchor = "    iget-object v8, p2, Lqy1;->c:Ljava/lang/String;"
     patch(smali / "oy1.smali", anchor, anchor + "\n\n"
           "    invoke-static {v8, p2}, Llocal/visualize/VisualRequest;->expand(Ljava/lang/String;Lqy1;)Ljava/lang/String;\n"
@@ -130,6 +161,7 @@ def patch_apk():
               f"    move-result-object {register}\n\n" + anchor)
     bridge = smali / "local" / "visualize"
     bridge.mkdir(parents=True, exist_ok=True)
+    (bridge / "CodeCompose.smali").unlink(missing_ok=True)
     for source in SOURCE.glob("*.smali"):
         shutil.copyfile(source, bridge / source.name)
 
